@@ -29,6 +29,7 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     QPointF getTileSize() {return m_tileSize;}
+    bool tileExists(QPointF position);
 
     void reset(QPoint size);
     const QVector<Tile*>& getTiles() {return m_tiles;}
@@ -40,7 +41,6 @@ private:
     QVector<Tile*> m_tiles;
     TileSet& m_tileset;
 
-    bool tileExists(QPointF position);
     Tile& getTile(QPointF position);
     bool tileEnabled(QPointF position);
 };

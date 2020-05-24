@@ -13,6 +13,10 @@ void EditorScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     int tilePosY = (int) scenePos.y() / m_tilemap.getTileSize().y();
     QPoint tilePos {tilePosX, tilePosY};
 
+    if (!m_tilemap.tileExists(tilePos)) {
+        return;
+    }
+
     if (event->button() == Qt::LeftButton) {
         if (m_selectedTileName != "") {
             m_tilemap.enableTile(tilePos, m_selectedTileName);

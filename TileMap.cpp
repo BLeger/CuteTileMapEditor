@@ -65,6 +65,7 @@ bool TileMap::tileExists(QPointF position)
 
 Tile &TileMap::getTile(QPointF position)
 {
+    qDebug() << position;
     assert(tileExists(position));
     return *m_tiles[position.x() + m_size.x() * position.y()];
 }
