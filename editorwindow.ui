@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditorWindow</class>
+ <widget class="QMainWindow" name="EditorWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>EditorWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QListView" name="tileView">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuCarte">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="openMapAction"/>
+    <addaction name="saveMapAction"/>
+   </widget>
+   <addaction name="menuCarte"/>
+  </widget>
+  <action name="openMapAction">
+   <property name="text">
+    <string>Ouvrir</string>
+   </property>
+  </action>
+  <action name="saveMapAction">
+   <property name="text">
+    <string>Sauvegarder</string>
+   </property>
+  </action>
+  <action name="closeMapAction">
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </action>
+  <action name="actionChanger_dimensions">
+   <property name="text">
+    <string>Changer dimensions</string>
+   </property>
+  </action>
+  <action name="newMapAction">
+   <property name="text">
+    <string>Nouvelle</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

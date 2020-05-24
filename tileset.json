@@ -1,0 +1,58 @@
+{
+    "image": ":/tilemap.png",
+    "size": {"x": 76, "y": 36},
+    "tileSize": {"x": 16, "y": 16},
+    "tileOffset": {"x": 1, "y": 1},
+    "tiles": [
+        {
+            "name": "grass_left",
+            "position": {"x": 0, "y": 0},
+            "collision": true
+        },
+        {
+            "name": "grass_middle",
+            "position": {"x": 1, "y": 0},
+            "collision": true
+        },
+        {
+            "name": "grass_right",
+            "position": {"x": 2, "y": 0},
+            "collision": true
+        },
+        {
+            "name": "dirt_left",
+            "position": {"x": 0, "y": 1},
+            "collision": true
+        },
+        {
+            "name": "dirt_middle",
+            "position": {"x": 1, "y": 1},
+            "collision": true
+        },
+        {
+            "name": "dirt_right",
+            "position": {"x": 2, "y": 1},
+            "collision": true
+        },
+        {
+            "name": "dirt_bottom_left",
+            "position": {"x": 0, "y": 2},
+            "collision": true
+        },
+        {
+            "name": "dirt_bottom_middle",
+            "position": {"x": 1, "y": 2},
+            "collision": true
+        },
+        {
+            "name": "dirt_bottom_right",
+            "position": {"x": 2, "y": 2},
+            "collision": true
+        },
+        {
+            "name": "air",
+            "position": {"x": 16, "y": 0},
+            "collision": false
+        }
+    ]
+}

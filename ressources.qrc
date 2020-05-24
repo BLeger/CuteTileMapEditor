@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>tilemap.png</file>
+        <file>tileset.json</file>
+    </qresource>
+</RCC>
