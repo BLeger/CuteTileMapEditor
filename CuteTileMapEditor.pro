@@ -34,12 +34,12 @@ SOURCES += \
     EditorScene.cpp
 
 HEADERS += \
+    EditorScene.h \
         EditorWindow.h \
     Tile.h \
     TileMap.h \
     TileSet.h \
-    TileListModel.h \
-    editorscene.h
+    TileListModel.h
 
 FORMS += \
         editorwindow.ui
