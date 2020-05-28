@@ -11,7 +11,8 @@ EditorWindow::EditorWindow(QWidget *parent) :
     ui->setupUi(this);
 
     m_view = new QGraphicsView();
-    m_scene = new EditorScene(m_tilemap);
+    m_view->setMouseTracking(true);
+    m_scene = new EditorScene(m_tilemap, statusBar());
     m_view->setScene(m_scene);
 
     m_scene->addItem(&m_tilemap);
@@ -24,6 +25,11 @@ EditorWindow::EditorWindow(QWidget *parent) :
     connect(ui->tileView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(changeSelectedTile(QItemSelection, QItemSelection)));
     connect(ui->openMapAction, SIGNAL(triggered()), this, SLOT(openMapMenuClicked()));
     connect(ui->saveMapAction, SIGNAL(triggered()), this, SLOT(saveMapMenuClicked()));
+
+    connect(ui->moveLeftButton, SIGNAL(clicked()), this, SLOT(moveLeftClicked()));
+    connect(ui->moveRightButton, SIGNAL(clicked()), this, SLOT(moveRightClicked()));
+
+    statusBar()->showMessage("test");
 }
 
 EditorWindow::~EditorWindow()
@@ -33,6 +39,7 @@ EditorWindow::~EditorWindow()
 
 void EditorWindow::openMapMenuClicked()
 {
+    m_scene->resetOffset();
     QString fileName = QFileDialog::getOpenFileName(this, "Open map", "", tr("Json file (*.json)"));
 
     QFile file;
@@ -60,11 +67,6 @@ void EditorWindow::openMapMenuClicked()
     }
 
     openedMap = fileName;
-}
-
-void EditorWindow::closeMapMenuClicked()
-{
-
 }
 
 void EditorWindow::saveMapMenuClicked()
@@ -99,8 +101,18 @@ void EditorWindow::changeSelectedTile(QItemSelection selected, QItemSelection de
     }
 }
 
+void EditorWindow::moveLeftClicked()
+{
+    m_scene->moveMapLeft();
+}
+
+void EditorWindow::moveRightClicked()
+{
+    m_scene->moveMapRight();
+}
+
 void EditorWindow::resizeEvent(QResizeEvent *event)
 {
     QSize viewSize = m_view->size();
-    m_scene->setSceneRect(QRectF{0, 0, (float) viewSize.rwidth(), (float) viewSize.rheight()});
+    m_scene->setSceneRect(QRectF{0, 0, (float) viewSize.rwidth() - 10, (float) viewSize.rheight() - 10});
 }

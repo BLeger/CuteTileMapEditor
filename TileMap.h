@@ -26,9 +26,11 @@ public:
     void enableTile(QPointF position);
     void enableTile(QPointF position, QString descriptorName);
     void disableTile(QPointF position);
+    void disableAll();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     QPointF getTileSize() {return m_tileSize;}
+    QPoint getSize() { return m_size; }
     bool tileExists(QPointF position);
 
     void reset(QPoint size);

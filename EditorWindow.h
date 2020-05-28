@@ -32,9 +32,11 @@ public:
 
 private slots:
     void openMapMenuClicked();
-    void closeMapMenuClicked();
     void saveMapMenuClicked();
     void changeSelectedTile(QItemSelection selected, QItemSelection deselected);
+
+    void moveLeftClicked();
+    void moveRightClicked();
 
 private:
     Ui::EditorWindow *ui;

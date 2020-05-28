@@ -6,6 +6,7 @@ TileMap::TileMap(QPoint size, TileSet& tileset) :
     for (float y = 0.f; y < size.y(); y++) {
         for (float x = 0.f; x < size.x(); x++) {
             m_tiles.push_back(new Tile {QPointF{x * m_tileSize.x(), y * m_tileSize.y()}, m_tileset});
+            enableTile({x, y});
         }
     }
 }
@@ -52,7 +53,6 @@ void TileMap::updatePosition()
         qDebug() << childItems()[0];
         ((Tile*) childItems()[0])->disable();
         removeFromGroup(childItems()[0]);
-        //qDebug() << childItems()[0];
 
         counter++;
     }
@@ -65,7 +65,6 @@ bool TileMap::tileExists(QPointF position)
 
 Tile &TileMap::getTile(QPointF position)
 {
-    qDebug() << position;
     assert(tileExists(position));
     return *m_tiles[position.x() + m_size.x() * position.y()];
 }
@@ -112,12 +111,15 @@ void TileMap::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void TileMap::reset(QPoint size)
 {
-    m_size = size;
+    disableAll();
     m_tiles.clear();
+
+    m_size = size;
 
     for (float y = 0.f; y < size.y(); y++) {
         for (float x = 0.f; x < size.x(); x++) {
             m_tiles.push_back(new Tile {QPointF{x * m_tileSize.x(), y * m_tileSize.y()}, m_tileset});
+            enableTile({x, y});
         }
     }
 }
@@ -154,4 +156,13 @@ QJsonObject TileMap::toJson()
     tilemap["map"] = tileArray;
 
     return tilemap;
+}
+
+void TileMap::disableAll()
+{
+    for (float y = 0.f; y < m_size.y(); y++) {
+        for (float x = 0.f; x < m_size.x(); x++) {
+            disableTile({x, y});
+        }
+    }
 }

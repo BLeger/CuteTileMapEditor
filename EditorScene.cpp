@@ -1,7 +1,7 @@
 #include "EditorScene.h"
 
-EditorScene::EditorScene(TileMap &tilemap)
-    : m_tilemap(tilemap)
+EditorScene::EditorScene(TileMap &tilemap, QStatusBar* statusBar)
+    : m_tilemap(tilemap), m_statusBar(statusBar)
 {
 
 }
@@ -47,10 +47,14 @@ void EditorScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         startPos.setY(tilePos.y());
     }
 
+
+    qDebug() << endPos;
+
     for (int x = startPos.x(); x <= endPos.x(); x++) {
         for (int y = startPos.y(); y <= endPos.y(); y++) {
             QPoint pos {x, y};
-
+            qDebug() << "actual pos : ";
+            qDebug() << pos;
             if (!m_tilemap.tileExists(pos)) {
                 return;
             }
@@ -66,11 +70,48 @@ void EditorScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+void EditorScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    if (m_statusBar == nullptr) return;
+
+    QPoint tilePos = sceneToTilePosition(event->scenePos());
+
+    std::string message = "Taille tilemap : " + std::to_string(m_tilemap.getSize().x()) + "x" + std::to_string(m_tilemap.getSize().y());
+    message += " | Position souris : " + std::to_string(tilePos.x()) + "x" + std::to_string(tilePos.y());
+    message += " | Décallage affichage map : " + std::to_string(mapXOffset);
+
+    QString str = QString::fromUtf8(message.c_str());
+    m_statusBar->showMessage(str);
+}
+
+void EditorScene::moveMapLeft()
+{
+    mapXOffset -= 100;
+    updateMapPosition();
+}
+
+void EditorScene::moveMapRight()
+{
+    mapXOffset += 100;
+    updateMapPosition();
+}
+
+void EditorScene::resetOffset()
+{
+    mapXOffset = 0;
+    updateMapPosition();
+}
+
 QPoint EditorScene::sceneToTilePosition(QPointF scenePos)
 {
-    int tilePosX = (int) scenePos.x() / m_tilemap.getTileSize().x();
+    int tilePosX = (int) (scenePos.x() - mapXOffset) / m_tilemap.getTileSize().x();
     int tilePosY = (int) scenePos.y() / m_tilemap.getTileSize().y();
     QPoint tilePos {tilePosX, tilePosY};
 
     return tilePos;
+}
+
+void EditorScene::updateMapPosition()
+{
+    m_tilemap.setPos(mapXOffset, m_tilemap.pos().y());
 }
